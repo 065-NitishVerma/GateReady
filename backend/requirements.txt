@@ -1,0 +1,13 @@
+fastapi==0.115.6
+uvicorn[standard]==0.30.6
+pydantic==2.9.2
+langgraph>=0.2.60
+langgraph-checkpoint-sqlite>=3.0.1
+aiosqlite==0.20.0
+langchain-core==0.3.22
+PyJWT==2.9.0
+passlib==1.7.4
+pymongo==4.8.0
+python-dotenv==1.0.1
+httpx==0.28.1
+groq

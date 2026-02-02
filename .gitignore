@@ -1,0 +1,8 @@
+.venv/
+backend/.env
+frontend/node_modules/
+backend/checkpoints.sqlite
+backend/checkpoints.sqlite-shm
+backend/checkpoints.sqlite-wal
+__pycache__/
+*.pyc
