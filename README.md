@@ -1,6 +1,32 @@
 # GateReady (SDE Portfolio)
 
-Phase 1 scaffolding: FastAPI + LangGraph hello graph.
+Secure, stateful AI booking assistant with authenticated tool use, LangGraph routing, and MongoDB-backed data.
+
+## Highlights
+
+- JWT auth + refresh + logout
+- LangGraph state machine with checkpointed memory
+- Hybrid intent routing (rules first, LLM fallback)
+- Booking tools (latest, all, flight-specific)
+- Flight details via RAG-style text retrieval
+- React frontend (login + chat + bookings + filters)
+
+## Architecture (High Level)
+
+```text
+React UI
+  │
+  ├─ Login / Chat / Bookings
+  ▼
+FastAPI API
+  ├─ Auth (JWT + refresh + logout)
+  ├─ Agent /chat (LangGraph)
+  │    ├─ Intent routing (rules → LLM fallback)
+  │    ├─ Tool calls (API-first)
+  │    └─ Checkpointed memory (SQLite)
+  ├─ /bookings (MongoDB)
+  └─ /flight-info (MongoDB, text docs)
+```
 
 ## Backend
 
@@ -41,6 +67,33 @@ Notes:
 - If your LangGraph version supports `SqliteSaver`, checkpoints are stored in the SQLite file pointed to by `CHECKPOINT_DB`. Otherwise it falls back to in-memory checkpoints.
 - Flight info for RAG-like answers is stored in the `flight_info` collection and accessible via `/flight-info/{flight_number}`.
 
+Seed demo data:
+
+```powershell
+Invoke-RestMethod http://127.0.0.1:8000/seed -Method Post
+```
+
 ## Frontend
 
-Placeholder for Phase 4 (React or Streamlit).
+```powershell
+cd frontend
+npm install
+npm run dev
+```
+
+Optional `.env` for frontend:
+
+```
+VITE_API_BASE=http://127.0.0.1:8000
+```
+
+## Core Endpoints
+
+- `POST /login` → access + refresh token
+- `POST /refresh` → refresh access token
+- `POST /logout` → revoke refresh + clear memory
+- `POST /chat` → chat with the agent
+- `GET /bookings` → list bookings (filters: origin, destination, status)
+- `GET /bookings/latest` → latest booking
+- `GET /bookings/flight/{flight_number}` → booking by flight
+- `GET /flight-info/{flight_number}` → flight info text
