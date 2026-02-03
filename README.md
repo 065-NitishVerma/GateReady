@@ -13,10 +13,19 @@ Secure, stateful AI booking assistant with authenticated tool use, LangGraph rou
 
 ## Screenshots
 
+**Login screen**  
 ![Login screen](docs/screenshots/01.png)
+
+**Bookings list + chat view**  
 ![Bookings list + chat view](docs/screenshots/02.png)
+
+**Chat: latest booking response**  
 ![Chat: latest booking response](docs/screenshots/03.png)
+
+**Chat: identity unknown before user shares name**  
 ![Chat: identity unknown before user shares name](docs/screenshots/04.png)
+
+**Chat: remembers name within session**  
 ![Chat: remembers name within session](docs/screenshots/05.png)
 
 ## Architecture (High Level)
