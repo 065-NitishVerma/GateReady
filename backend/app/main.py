@@ -65,7 +65,6 @@ class BookingCreateRequest(BaseModel):
         from datetime import datetime
 
         try:
-            # Expecting ISO 8601 string like 2026-04-01T09:30:00Z
             if value.endswith("Z"):
                 value = value[:-1] + "+00:00"
             datetime.fromisoformat(value)
@@ -100,7 +99,6 @@ async def health():
 
 @app.on_event("startup")
 async def startup():
-    # Seed a demo user in MongoDB for local testing.
     ensure_demo_user()
 
 
@@ -163,7 +161,6 @@ async def logout(req: LogoutRequest):
 
 @app.post("/seed", response_model=SeedResponse)
 async def seed():
-    # Creates demo user + booking to initialize MongoDB collections.
     ensure_demo_user()
     from app.db import get_bookings_collection
     from app.db import get_flight_info_collection
@@ -323,7 +320,6 @@ async def flight_info(flight_number: str, request: Request):
 
 @app.post("/chat")
 async def chat(req: ChatRequest, request: Request):
-    # Phase 3: user_id is injected by middleware from the JWT
     state = {
         "messages": [HumanMessage(content=req.message)],
         "user_id": request.state.user_id or "",
@@ -338,7 +334,6 @@ async def chat(req: ChatRequest, request: Request):
         state,
         config={"configurable": {"thread_id": thread_id}},
     )
-    # result["messages"] is a list of AnyMessage; return last assistant message
     messages = result.get("messages", [])
     content = messages[-1].content if messages else ""
     return {"reply": content}

@@ -206,7 +206,6 @@ def _format_iso_datetime(value: str) -> str:
 
 
 def _normalize_text(text: str) -> str:
-    # Normalize unicode hyphens to ASCII for flight numbers like AI‑888.
     text = re.sub(r"[\u2010-\u2015]", "-", text)
     return " ".join(re.sub(r"[^a-z0-9\s-]", " ", text.lower()).split())
 
@@ -268,8 +267,6 @@ def build_graph():
     if SqliteSaver is not None:
         default_path = Path(__file__).resolve().parents[1] / "checkpoints.sqlite"
         checkpoint_path = Path(os.getenv("CHECKPOINT_DB", str(default_path)))
-        # Use async sqlite checkpointer to support graph.ainvoke().
-        # AsyncSqliteSaver.from_conn_string is a contextmanager, so keep a global connection.
         global _ASYNC_SQLITE_CONN
         _ASYNC_SQLITE_CONN = aiosqlite.connect(str(checkpoint_path))
         checkpointer = AsyncSqliteSaver(_ASYNC_SQLITE_CONN)

@@ -210,7 +210,7 @@ function App() {
           <p className="eyebrow">GateReady</p>
           <h1>Secure flight answers, fast.</h1>
           <p className="subtle">
-            Login, then ask about your next trip. The agent calls the API layer for every lookup.
+            Login, then ask about your next trip.
           </p>
         </div>
         <div className="status-chip">
