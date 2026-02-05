@@ -45,6 +45,17 @@ FastAPI API
   └─ /flight-info (MongoDB, text docs)
 ```
 
+## Diagrams
+
+**High Level Design (HLD)**  
+![HLD](docs/diagrams/hld.png)
+
+**LLD — Sequence Diagram**  
+![LLD Sequence](docs/diagrams/lld-sequence.png)
+
+**LLD — Class Diagram**  
+![LLD Class](docs/diagrams/lld-class.png)
+
 ## Backend
 
 Create a virtual environment, then install deps:
