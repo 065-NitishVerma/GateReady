@@ -1,4 +1,4 @@
-# GateReady (SDE Portfolio)
+# GateReady
 
 Secure, stateful AI booking assistant with authenticated tool use, LangGraph routing, and MongoDB-backed data.
 
@@ -10,6 +10,17 @@ Secure, stateful AI booking assistant with authenticated tool use, LangGraph rou
 - Booking tools (latest, all, flight-specific)
 - Flight details via RAG-style text retrieval
 - React frontend (login + chat + bookings + filters)
+
+## Diagrams
+
+**High Level Design (HLD)**  
+![HLD](docs/diagrams/hld.png)
+
+**LLD - Sequence Diagram**  
+![LLD Sequence](docs/diagrams/lld-sequence.png)
+
+**LLD - Class Diagram**  
+![LLD Class](docs/diagrams/lld-class.png)
 
 ## Screenshots
 
@@ -27,34 +38,6 @@ Secure, stateful AI booking assistant with authenticated tool use, LangGraph rou
 
 **Chat: remembers name within session**  
 ![Chat: remembers name within session](docs/screenshots/05.png)
-
-## Architecture (High Level)
-
-```text
-React UI
-  │
-  ├─ Login / Chat / Bookings
-  ▼
-FastAPI API
-  ├─ Auth (JWT + refresh + logout)
-  ├─ Agent /chat (LangGraph)
-  │    ├─ Intent routing (rules → LLM fallback)
-  │    ├─ Tool calls (API-first)
-  │    └─ Checkpointed memory (SQLite)
-  ├─ /bookings (MongoDB)
-  └─ /flight-info (MongoDB, text docs)
-```
-
-## Diagrams
-
-**High Level Design (HLD)**  
-![HLD](docs/diagrams/hld.png)
-
-**LLD — Sequence Diagram**  
-![LLD Sequence](docs/diagrams/lld-sequence.png)
-
-**LLD — Class Diagram**  
-![LLD Class](docs/diagrams/lld-class.png)
 
 ## Backend
 
@@ -117,11 +100,11 @@ VITE_API_BASE=http://127.0.0.1:8000
 
 ## Core Endpoints
 
-- `POST /login` → access + refresh token
-- `POST /refresh` → refresh access token
-- `POST /logout` → revoke refresh + clear memory
-- `POST /chat` → chat with the agent
-- `GET /bookings` → list bookings (filters: origin, destination, status)
-- `GET /bookings/latest` → latest booking
-- `GET /bookings/flight/{flight_number}` → booking by flight
-- `GET /flight-info/{flight_number}` → flight info text
+- `POST /login` -> access + refresh token
+- `POST /refresh` -> refresh access token
+- `POST /logout` -> revoke refresh + clear memory
+- `POST /chat` -> chat with the agent
+- `GET /bookings` -> list bookings (filters: origin, destination, status)
+- `GET /bookings/latest` -> latest booking
+- `GET /bookings/flight/{flight_number}` -> booking by flight
+- `GET /flight-info/{flight_number}` -> flight info text
